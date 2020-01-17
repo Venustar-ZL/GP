@@ -1,5 +1,10 @@
 package com.zlei.gp.controller;
 
+import com.zlei.gp.response.CommonResult;
+import com.zlei.gp.service.LoginService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +23,11 @@ import java.util.Map;
  * version: 1.0
  **/
 @Controller
+@Slf4j
 public class LoginController {
+
+    @Autowired
+    private LoginService loginService;
 
     @RequestMapping("/index")
     public String index () {
@@ -27,6 +36,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpSession session, String username, String password, Map<String, Object> map) {
+        log.info(username);
         //判断用户名不为空，并且密码为123，则登录 成功
         if (!StringUtils.isEmpty(username)&& "123".equals(password)) {
             session.setAttribute("loginUser", username);
@@ -53,6 +63,14 @@ public class LoginController {
         session.invalidate();
         //3. 返回登录页面
         return "redirect:/index.html";
+    }
+
+    /**
+     * 获取账号详情
+     * @return
+     */
+    public CommonResult getUesrInfo() {
+        return loginService.getUserInfo();
     }
 
 }

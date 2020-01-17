@@ -1,0 +1,24 @@
+server:
+  port: 9999
+
+#thymeleaf start
+spring:
+  thymeleaf:
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+  #thymeleaf end
+  messages:
+    basename: i18n.login
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://120.26.88.216:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.zlei.gp.entity

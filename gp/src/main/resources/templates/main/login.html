@@ -11,22 +11,22 @@
         <h1>闲置物品交易平台</h1>
     </header>
     <section class="loginCont">
-        <form class="loginForm" th:action="@{/login}" th:method="post" action="../main/index.html">
+        <form class="loginForm" th:action="@{/login}" th:method="get" action="../main/index.html">
             <div class="inputbox">
-                <label for="user" th:text="#{login.username}" >Username</label>
-                <input id="user" type="text" name="username"  required/>
+                <label for="username">用户名</label>
+                <input id="username" type="text" name="username"  required/>
             </div>
             <div class="inputbox">
-                <label for="mima" th:text="#{login.password}">Password</label>
-                <input id="mima" type="password" name="password"  required/>
+                <label for="password">密码</label>
+                <input id="password" type="password" name="password"  required/>
             </div>
             <div class="subBtn">
-                <input type="checkbox"/> [[#{login.remember}]]
+                <input type="checkbox" value="记住我"/> 记住我
             </div>
             <br/>
             <div class="subBtn">
-                <input type="submit" th:value="#{login.submit}"  value="Sign" />
-                <input type="reset" th:value="#{login.reset}"  value="Reset"/>
+                <input type="submit" value="登录" />
+                <input type="reset" value="重置"/>
             </div>
             <br/>
             <div style="margin-left: 100px;">
