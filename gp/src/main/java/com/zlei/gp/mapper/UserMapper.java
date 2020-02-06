@@ -1,7 +1,10 @@
 package com.zlei.gp.mapper;
 
 import com.zlei.gp.entity.User;
-import org.springframework.stereotype.Service;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Component;
+
 
 /**
  * @ClassName: UserMapper
@@ -11,8 +14,10 @@ import org.springframework.stereotype.Service;
  * version: 1.0
  **/
 @Mapper
-public interface UserMapper {
+@Component
+public interface UserMapper{
 
+    @Select("select * from userinfo")
     public User getUserInfo();
 
 }

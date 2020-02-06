@@ -18,7 +18,3 @@ spring:
     url: jdbc:mysql://120.26.88.216:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
     password: 123456
-
-mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
-  type-aliases-package: com.zlei.gp.entity

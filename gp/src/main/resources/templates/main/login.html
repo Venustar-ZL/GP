@@ -13,20 +13,20 @@
     <section class="loginCont">
         <form class="loginForm" th:action="@{/login}" th:method="get" action="../main/index.html">
             <div class="inputbox">
-                <label for="username">用户名</label>
+                <label for="username" th:text="#{login_username}">Username</label>
                 <input id="username" type="text" name="username"  required/>
             </div>
             <div class="inputbox">
-                <label for="password">密码</label>
+                <label for="password" th:text="#{login_password}">Password</label>
                 <input id="password" type="password" name="password"  required/>
             </div>
             <div class="subBtn">
-                <input type="checkbox" value="记住我"/> 记住我
+                <input type="checkbox"> [[#{login_remember}]]
             </div>
             <br/>
             <div class="subBtn">
-                <input type="submit" value="登录" />
-                <input type="reset" value="重置"/>
+                <input type="submit" th:value="#{login_submit}" value="登录" />
+                <input type="reset" th:value="#{login_reset}" value="重置"/>
             </div>
             <br/>
             <div style="margin-left: 100px;">
