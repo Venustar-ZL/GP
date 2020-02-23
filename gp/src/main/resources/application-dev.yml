@@ -18,3 +18,17 @@ spring:
     url: jdbc:mysql://120.26.88.216:3306/test?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
     username: root
     password: 123456
+
+  redis:
+    host: 120.26.88.216
+    port: 6382
+    password:
+    timeout: 10000
+#    maxIdle: 300
+#    maxTotal: 1000
+#    maxWaitMillis: 1000
+#    minEvictableIdleTimeMillis: 300000
+#    numTestsPerEvictionRun: 1024
+#    timeBetweenEvictionRunsMillis: 30000
+#    testOnBorrow: true
+#    testWhileIdle: true

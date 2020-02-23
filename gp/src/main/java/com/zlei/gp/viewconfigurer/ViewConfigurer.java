@@ -28,6 +28,8 @@ public class ViewConfigurer {
                 registry.addViewController("/").setViewName("main/login");
                 registry.addViewController("/index.html").setViewName("main/login");
                 registry.addViewController("/main.html").setViewName("main/index");
+                registry.addViewController("/register.html").setViewName("main/register");
+                registry.addViewController("/goods/postGoods.html").setViewName("goods/register");
             }
 
             @Override
@@ -36,7 +38,7 @@ public class ViewConfigurer {
                         //指定要拦截的请求 /** 表示拦截所有请求
                         .addPathPatterns("/**")
                         //排除不需要拦截的请求路径
-                        .excludePathPatterns("/", "/index.html", "/login")
+                        .excludePathPatterns("/", "/index.html", "/login", "/register.html", "/register")
                         //springboot2+之后需要将静态资源文件的访问路径 也排除
                         .excludePathPatterns("/css/*", "/img/*","/js/*");
             }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" >
+    <meta charset="UTF-8">
+    <title>用户注册 - 闲置物品交易平台</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../css/style.css"/>
+</head>
+<body class="register_bg">
+<section class="registerBox">
+    <header class="registerHeader">
+        <h1>注册中心</h1>
+    </header>
+    <section class="registerCont">
+        <div th:if=" ${not #strings.isEmpty(msg)}" th:text="${msg}" style="color:red; margin-left: 130px">用户名错误！</div>
+        <form class="registerForm" th:action="@{/register}" th:method="post" action="../main/index.html">
+            <div class="inputbox">
+                <label for="userName" th:text="#{login_username}">Username</label>
+                <input id="userName" type="text" name="userName"  required/>
+            </div>
+            <div class="inputbox">
+                <label for="password" th:text="#{login_password}">Password</label>
+                <input id="password" type="password" name="password"  required/>
+            </div>
+            <div class="subBtn">
+                <input type="submit" value="注册" />
+            </div>
+        </form>
+    </section>
+</section>
+</body>
+</html>
