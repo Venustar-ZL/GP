@@ -14,6 +14,11 @@ import java.io.Serializable;
 public class PasswordInfo implements Serializable {
 
     /**
+     * 用户Uuid
+     */
+    private String userUuid;
+
+    /**
      * 密码
      */
     private String password;

@@ -8,6 +8,7 @@ import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.response.ConstantEnum;
 import com.zlei.gp.service.UserService;
 import com.zlei.gp.utils.PasswordUtil;
+import com.zlei.gp.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,12 +52,13 @@ public class UserServiceImpl implements UserService {
 
         PasswordInfo passwordInfo = userMapper.getPasswordByName(userName);
         String userPassword = passwordInfo.getPassword();
+        String userUuid = passwordInfo.getUserUuid();
         boolean passwordFlag = PasswordUtil.matches(password, userPassword);
         if (passwordFlag == false) {
             return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "密码错误");
         }
 
-        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, userUuid);
     }
 
     @Override
@@ -68,11 +70,13 @@ public class UserServiceImpl implements UserService {
             return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "用户名已存在");
         }
 
+        String userUuid = UuidUtil.getUUID();
+
         // 对密码进行加密处理
         password = PasswordUtil.passwordEncode(password);
-        userMapper.registerUser(userName, password);
+        userMapper.registerUser(userUuid, userName, password);
 
-        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, userUuid);
     }
 
 }

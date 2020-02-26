@@ -24,11 +24,11 @@ import java.util.List;
 @Component
 public interface UserMapper{
 
-    @Select("select password from userinfo where userName = #{userName}")
+    @Select("select password, userUuid from userinfo where userName = #{userName}")
     public PasswordInfo getPasswordByName(@Param("userName") String userName);
 
-    @Insert("insert into userinfo (userName, password) values (#{userName}, #{password})")
-    public void registerUser(@Param("userName") String userName, @Param("password") String password);
+    @Insert("insert into userinfo (userUuid, userName, password) values (#{userUuid}, #{userName}, #{password})")
+    public void registerUser(@Param("userUuid") String userUuid, @Param("userName") String userName, @Param("password") String password);
 
     @Select("select userName from userinfo")
     public List<UserNameInfo> getAllUserName();

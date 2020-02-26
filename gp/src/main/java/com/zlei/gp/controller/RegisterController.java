@@ -32,6 +32,7 @@ public class RegisterController {
             return "/main/register";
         }
         session.setAttribute("loginUser", userName);
+        session.setAttribute("userUuid", commonResult.getMsg());
         return "/main/login";
     }
 

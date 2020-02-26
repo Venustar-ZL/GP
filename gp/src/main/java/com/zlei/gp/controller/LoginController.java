@@ -1,5 +1,6 @@
 package com.zlei.gp.controller;
 
+import com.zlei.gp.entity.PasswordInfo;
 import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.service.UserService;
 import com.zlei.gp.utils.RedisUtil;
@@ -50,6 +51,7 @@ public class LoginController {
         // 存入redis
         //redisUtil.set("login-" + userName, userName);
         session.setAttribute("loginUser", userName);
+        session.setAttribute("userUuid", commonResult.getData());
         return "redirect:/main.html";
     }
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head">
+
+</head>
+<body>
+<!--头部-->
+<header class="publicHeader" th:replace="main/public :: #public_header">
+
+</header>
+<!--时间-->
+<section class="publicTime" th:replace="main/public :: #public_time">
+
+</section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='goods')">
+
+    </div>
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>发布商品页面 >> 卖闲置</span>
+        </div>
+        <div class="providerAdd">
+            <div th:if=" ${not #strings.isEmpty(msg)}" th:text="${msg}" style="color:red; margin-left: 130px"></div>
+            <form id="addForm" th:action="@{/addGoods}" th:method="post" action="../main/index.html" enctype="multipart/form-data">
+                <!--div的class 为error是验证错误，ok是验证成功-->
+                <div class="">
+                    <label for="goodsName">商品名称：</label>
+                    <input type="text" name="goodsName" id="goodsName"/>
+                    <span >*请输入商品名称</span>
+                </div>
+                <div>
+                    <label for="picture">商品图片：</label>
+                    <input type="file" name="picture" id="picture"/>
+                    <span >*请输入商品图片</span>
+                </div>
+
+                <div>
+                    <label for="description">描述：</label>
+                    <input type="text" name="description" id="description"/>
+                    <span>*请输入描述信息</span>
+                </div>
+                <div>
+                    <label for="price">价格：</label>
+                    <input type="text" name="price" id="price"/>
+                    <span>*请输入价格</span>
+                </div>
+                <div class="providerAddBtn">
+                    <input type="button" value="发布" onclick="$('#addForm').submit();"/>
+                    <input type="button" value="返回" onclick="history.back(-1)"/>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
+<footer class="footer"><div style="text-align:center;"></div></footer>
+<script src="../js/jquery.js"></script>
+<!--
+	<script src="js/time.js"></script>
+	-->
+</body>
+</html>

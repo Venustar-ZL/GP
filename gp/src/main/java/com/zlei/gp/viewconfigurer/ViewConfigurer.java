@@ -29,7 +29,6 @@ public class ViewConfigurer {
                 registry.addViewController("/index.html").setViewName("main/login");
                 registry.addViewController("/main.html").setViewName("main/index");
                 registry.addViewController("/register.html").setViewName("main/register");
-                registry.addViewController("/goods/postGoods.html").setViewName("goods/register");
             }
 
             @Override
