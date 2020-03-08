@@ -4,10 +4,7 @@ import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -73,6 +70,14 @@ public class GoodsController {
         map.put("goodsList", commonResult.getData());
         map.put("goodsName", goodsName);
         return "/goods/showGoods";
+    }
+
+    // 查看商品详情
+    @GetMapping("/getGoodsInfo/{goodsUuid}")
+    public String getGoodsInfo(@PathVariable("goodsUuid") String goodsUuid, Map<String, Object> map) {
+        CommonResult commonResult = goodsService.getGoodsInfoById(goodsUuid);
+        map.put("goods", commonResult.getData());
+        return "/goods/view";
     }
 
 

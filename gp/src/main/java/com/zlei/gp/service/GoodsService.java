@@ -11,4 +11,6 @@ public interface GoodsService {
 
     public CommonResult showGoods(String goodsName);
 
+    public CommonResult getGoodsInfoById(String goodsUuid);
+
 }

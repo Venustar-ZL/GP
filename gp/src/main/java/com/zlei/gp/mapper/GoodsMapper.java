@@ -30,4 +30,7 @@ public interface GoodsMapper {
     @Select("select goodsUuid, userUuid, goodsName, picture, description, price, userName, createTime from goods_info")
     public List<Goods> getGoods();
 
+    @Select("select goodsUuid, userUuid, goodsName, picture, description, price, userName, createTime from goods_info where goodsUuid = #{goodsUuid}")
+    public Goods getGoodsById(String goodsUuid);
+
 }

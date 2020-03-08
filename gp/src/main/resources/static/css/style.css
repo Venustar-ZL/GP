@@ -299,7 +299,7 @@ input[type='reset']:active, input[type='reset']:focus, .providerView a:hover, .p
 .providerView strong {
     display: inline-block;
     width: 200px;
-    text-align: right;
+    text-align: center;
 }
 
 .providerView span {

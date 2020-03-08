@@ -90,4 +90,10 @@ public class GoodsServiceImpl implements GoodsService {
 
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goodsList, "查询成功");
     }
+
+    @Override
+    public CommonResult getGoodsInfoById(String goodsUuid) {
+        Goods goods = goodsMapper.getGoodsById(goodsUuid);
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goods, "查询成功");
+    }
 }
