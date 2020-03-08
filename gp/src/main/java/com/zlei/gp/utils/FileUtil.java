@@ -1,5 +1,6 @@
 package com.zlei.gp.utils;
 
+import com.zlei.gp.entity.UploadResult;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 import org.springframework.stereotype.Component;
@@ -55,7 +56,8 @@ public class FileUtil {
         }
     }
 
-    public static boolean uploadToLinux(MultipartFile file) {
+    public static UploadResult uploadToLinux(MultipartFile file) {
+        UploadResult uploadResult = new UploadResult();
         FTPClient ftp = new FTPClient();
         ftp.setControlEncoding("utf-8");
         boolean success = false;
@@ -83,6 +85,7 @@ public class FileUtil {
                 System.out.println("连接失败");
                 success = true;
             }
+            uploadResult.setFileName(fileName);
             System.out.println("连接成功！");
 
             ftp.logout();
@@ -97,6 +100,7 @@ public class FileUtil {
                 }
             }
         }
-        return success;
+        uploadResult.setResult(success);
+        return uploadResult;
     }
 }

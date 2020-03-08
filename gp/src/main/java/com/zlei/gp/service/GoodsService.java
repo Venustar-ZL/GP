@@ -9,4 +9,6 @@ public interface GoodsService {
 
     public CommonResult addGoods(String goodsName, String description, String price, MultipartFile picture, String userUuid);
 
+    public CommonResult showGoods(String goodsName);
+
 }

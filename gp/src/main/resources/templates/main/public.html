@@ -27,8 +27,8 @@
         <h2 class="leftH2"><span class="span1"></span>功能列表 <span></span></h2>
         <nav>
             <ul class="list">
-                <li th:id="${activeUri == 'bill' ? 'active' : ''}"><a href="../bill/list.html">热门推荐</a></li>
-                <li th:id="${activeUri == 'goods' ? 'active' : ''}"><a th:href="@{/toAddGoods}" href="../goods/postGoods.html">发布物品</a></li>
+                <li th:id="${activeUri == 'show' ? 'active' : ''}"><a th:href="@{/toShowAllGoods}">热门推荐</a></li>
+                <li th:id="${activeUri == 'goods' ? 'active' : ''}"><a th:href="@{/toAddGoods}">发布物品</a></li>
                 <li th:id="${activeUri == 'user' ? 'active' : ''}"><a href="../user/list.html">消息</a></li>
                 <li th:id="${activeUri == 'pwd' ? 'active' : ''}"><a href="../main/password.html">个人中心</a></li>
                 <li><a th:href="@{/logout}" href="../main/login.html">退出系统</a></li>
@@ -56,7 +56,7 @@
 
 
 <footer class="footer" id="public_footer">
-    <div style="text-align:center;">	<p>更多功能尚在开发 尽请期待</p></div>
+    <div style="text-align:center;">	<p>更多功能尚在开发 敬请期待</p></div>
 </footer>
 
 
