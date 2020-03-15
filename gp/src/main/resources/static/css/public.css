@@ -149,7 +149,7 @@ li{
     background: url("../img/mm.png") 0  center no-repeat;
 }
 .list li:nth-child(5){
-    background: url("../img/tc.png") 0  center no-repeat;
+    background: url("../img/buy2.png") 0  center no-repeat;
 }
 .list li:hover{
     background-color: #acd5f5;

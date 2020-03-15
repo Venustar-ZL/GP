@@ -1,6 +1,7 @@
 package com.zlei.gp.mapper;
 
 import com.zlei.gp.entity.Goods;
+import com.zlei.gp.entity.GoodsUuids;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,5 +37,11 @@ public interface GoodsMapper {
 
     @Select("select count(*) from goods_info where userUuid = #{userUuid}")
     public Integer getUserPostCount(@Param("userUuid") String userUuid);
+
+    @Insert("insert into shopcar_info(goodsUuid, userUuid) values (#{goodsUuid}, #{userUuid})")
+    public void addShopCar(@Param("goodsUuid") String goodsUuid, @Param("userUuid") String userUuid);
+
+    @Select("select goodsUuid from shopcar_info where userUuid = #{userUuid}")
+    public List<GoodsUuids> getGoodsUuidByUser(@Param("userUuid") String userUuid);
 
 }

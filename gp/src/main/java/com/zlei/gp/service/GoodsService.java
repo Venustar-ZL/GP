@@ -13,4 +13,8 @@ public interface GoodsService {
 
     public CommonResult getGoodsInfoById(String goodsUuid);
 
+    public CommonResult addShopCar(String goodsUuid, String userUuid);
+
+    public CommonResult getShopCar(String userUuid);
+
 }

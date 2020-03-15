@@ -1,8 +1,6 @@
 package com.zlei.gp.service.impl;
 
-import com.zlei.gp.entity.Goods;
-import com.zlei.gp.entity.UploadResult;
-import com.zlei.gp.entity.User;
+import com.zlei.gp.entity.*;
 import com.zlei.gp.mapper.GoodsMapper;
 import com.zlei.gp.mapper.UserMapper;
 import com.zlei.gp.response.CommonResult;
@@ -100,5 +98,24 @@ public class GoodsServiceImpl implements GoodsService {
     public CommonResult getGoodsInfoById(String goodsUuid) {
         Goods goods = goodsMapper.getGoodsById(goodsUuid);
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goods, "查询成功");
+    }
+
+    @Override
+    public CommonResult addShopCar(String goodsUuid, String userUuid) {
+        goodsMapper.addShopCar(goodsUuid, userUuid);
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, null, "加入购物车成功");
+    }
+
+    @Override
+    public CommonResult getShopCar(String userUuid) {
+        List<Goods> shopCarList = null;
+        List<GoodsUuids> goodsUuids = goodsMapper.getGoodsUuidByUser(userUuid);
+        if (goodsUuids.size() != 0) {
+        for (GoodsUuids goodsUuid : goodsUuids) {
+            Goods goods = goodsMapper.getGoodsById(goodsUuid.getGoodsUuid());
+            shopCarList.add(goods);
+           }
+        }
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, shopCarList, "查询购物车成功");
     }
 }

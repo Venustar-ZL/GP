@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.activation.CommandMap;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
 
@@ -78,6 +79,27 @@ public class GoodsController {
         CommonResult commonResult = goodsService.getGoodsInfoById(goodsUuid);
         map.put("goods", commonResult.getData());
         return "/goods/view";
+    }
+
+    // 加入购物车
+    @GetMapping("/addShopCar/{goodsUuid}")
+    public String addShopCar(@PathVariable("goodsUuid") String goodsUuid, HttpSession session) {
+        String userUuid = (String)session.getAttribute("userUUid");
+        goodsService.addShopCar(goodsUuid, userUuid);
+        return "/goods/showGoods";
+    }
+
+    // 查看购物车
+    @GetMapping("/toShopCar")
+    public String toShopCar(Map<String, Object> map, HttpSession session) {
+        String userUuid = (String)session.getAttribute("userUUid");
+        CommonResult commonResult = goodsService.getShopCar(userUuid);
+        if (!commonResult.isSuccess()) {
+            map.put("msg", commonResult.getMsg());
+            return "/goods/shopCar";
+        }
+        map.put("goodsList", commonResult.getData());
+        return "/goods/showGoods";
     }
 
 

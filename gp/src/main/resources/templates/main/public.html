@@ -31,7 +31,7 @@
                 <li th:id="${activeUri == 'goods' ? 'active' : ''}"><a th:href="@{/toAddGoods}">发布物品</a></li>
                 <li th:id="${activeUri == 'user' ? 'active' : ''}"><a href="../user/list.html">消息</a></li>
                 <li th:id="${activeUri == 'pwd' ? 'active' : ''}"><a href="../main/password.html">个人中心</a></li>
-                <li><a th:href="@{/logout}" href="../main/login.html">退出系统</a></li>
+                <li th:id="${activeUri == 'shop' ? 'active' : ''}"><a th:href="@{/toShopCar}">购物车</a></li>
             </ul>
         </nav>
     </div>

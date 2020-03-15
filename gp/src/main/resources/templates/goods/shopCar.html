@@ -14,32 +14,24 @@
 </section>
 <!--主体内容-->
 <section class="publicMian ">
-    <div class="left" th:replace="main/public :: #public_left(activeUri='show')">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='shop')">
 
     </div>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
-            <span>热门推荐</span>
+            <span>购物车</span>
         </div>
 
-        <form id="searchForm" th:action="@{/showAllGoods}" th:method="get">
-            <div class="search">
-                <span>商品名称：</span>
-                <input type="text" th:value="${goodsName}" name="goodsName" placeholder="请输入商品的名称"/>
-                <input type="button" onclick="$('#searchForm').submit();" value="查询"/>
-            </div>
-        </form>
         <!--商品展示-->
         <table class="providerTable" cellpadding="0" cellspacing="0">
             <tr class="firstTr">
                 <th width="10%">商品名称</th>
                 <th width="20%">商品图片</th>
-                <th width="15%">商品描述</th>
+                <th width="25%">商品描述</th>
                 <th width="10%">商品价格</th>
                 <th width="10%">发布人</th>
                 <th width="25%">发布时间</th>
-                <th width="10%">操作</th>
             </tr>
             <tr th:each="goods : ${goodsList}">
                 <td th:text="${goods.goodsName}"></td>
@@ -48,10 +40,6 @@
                 <td th:text="${goods.price}"></td>
                 <td th:text="${goods.userName}"></td>
                 <td th:text="${goods.createTime}"></td>
-                <td>
-                    <a th:href="@{/getGoodsInfo/} + ${goods.goodsUuid}" th:method="get" href="view.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="查看" title="查看"/></a>
-                    <a th:href="@{/addShopCar/} + ${goods.goodsUuid}" th:method="get" href="view.html"><img th:src="@{/img/buy2.png}" src="../img/read.png" alt="加入购物车" title="加入购物车"/></a>
-                </td>
             </tr>
 
         </table>

@@ -44,6 +44,9 @@
                 <td th:text="${user.goodsCount}"></td>
                 <td th:text="${user.createTime}"></td>
                 <td th:text="${user.updateTime}"></td>
+                <td>
+                    <a th:href="@{/getUesrInfo/} + ${user.userUuid}" th:method="get" href="view.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="查看" title="查看"/></a>
+                </td>
             </tr>
 
         </table>
