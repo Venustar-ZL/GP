@@ -3,6 +3,7 @@ package com.zlei.gp.mapper;
 import com.zlei.gp.entity.Goods;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -32,5 +33,8 @@ public interface GoodsMapper {
 
     @Select("select goodsUuid, userUuid, goodsName, picture, description, price, userName, createTime from goods_info where goodsUuid = #{goodsUuid}")
     public Goods getGoodsById(String goodsUuid);
+
+    @Select("select count(*) from goods_info where userUuid = #{userUuid}")
+    public Integer getUserPostCount(@Param("userUuid") String userUuid);
 
 }

@@ -12,7 +12,9 @@ import com.zlei.gp.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ import java.util.List;
  * @date 2020-02-21 20:00
  */
 @Service
+@SuppressWarnings("all")
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -71,10 +74,14 @@ public class UserServiceImpl implements UserService {
         }
 
         String userUuid = UuidUtil.getUUID();
+        // 获取当前时间
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createTime = sdf.format(date);
 
         // 对密码进行加密处理
         password = PasswordUtil.passwordEncode(password);
-        userMapper.registerUser(userUuid, userName, password);
+        userMapper.registerUser(userUuid, userName, password, createTime);
 
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, userUuid);
     }

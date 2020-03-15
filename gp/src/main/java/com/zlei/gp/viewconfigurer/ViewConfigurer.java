@@ -37,7 +37,7 @@ public class ViewConfigurer {
                         //指定要拦截的请求 /** 表示拦截所有请求
                         .addPathPatterns("/**")
                         //排除不需要拦截的请求路径
-                        .excludePathPatterns("/", "/index.html", "/login", "/register.html", "/register")
+                        .excludePathPatterns("/", "/index.html", "/login", "/register.html", "/register","/toManagerLogin","/toUserLogin","/managerLogin")
                         //springboot2+之后需要将静态资源文件的访问路径 也排除
                         .excludePathPatterns("/css/*", "/img/*","/js/*");
             }

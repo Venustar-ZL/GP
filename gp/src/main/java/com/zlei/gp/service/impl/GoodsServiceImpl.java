@@ -25,6 +25,7 @@ import java.util.List;
  * @date 2020-02-23 15:00
  */
 @Service
+@SuppressWarnings("all")
 public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
@@ -69,6 +70,10 @@ public class GoodsServiceImpl implements GoodsService {
         String fileName = "http://120.26.88.216:8080/img/" + uploadResult.getFileName();
 
         goodsMapper.addGoods(goodsName, description, price, fileName, goodsUuid, userUuid, userName, createTime);
+
+        int goodsCount = goodsMapper.getUserPostCount(userUuid);
+        userMapper.updateCount(goodsCount, userUuid);
+
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, null, "图片上传成功");
     }
 

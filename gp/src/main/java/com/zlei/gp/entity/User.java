@@ -28,4 +28,19 @@ public class User implements Serializable {
      * 密码
      */
     private String password;
+
+    /**
+     * 创建时间
+     */
+    private String createTime;
+
+    /**
+     * 修改时间
+     */
+    private String updateTime;
+
+    /**
+     * 发布商品数量
+     */
+    private String goodsCount;
 }

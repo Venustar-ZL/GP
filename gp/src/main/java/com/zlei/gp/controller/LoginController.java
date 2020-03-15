@@ -2,6 +2,7 @@ package com.zlei.gp.controller;
 
 import com.zlei.gp.entity.PasswordInfo;
 import com.zlei.gp.response.CommonResult;
+import com.zlei.gp.service.ManagerService;
 import com.zlei.gp.service.UserService;
 import com.zlei.gp.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,9 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ManagerService managerService;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -59,12 +63,48 @@ public class LoginController {
      * 退出登录
      * @return
      */
-    @GetMapping("/logout")
+    @GetMapping("/loginout")
     public String logout(HttpSession session) {
         session.removeAttribute("loginUser");
         session.invalidate();
         return "redirect:/index.html";
     }
 
+    /**
+     * 管理员登录页面跳转
+     */
+    @RequestMapping("toManagerLogin")
+    public String toManagerLogin() {
+        return "/manager/managerLogin";
+    }
+
+    /**
+     * 普通用户登录页面跳转
+     */
+    @RequestMapping("toUserLogin")
+    public String toUserLogin() {
+        return "/main/login";
+    }
+
+    /**
+     * 管理员登录
+     */
+    @GetMapping("/managerLogin")
+    public String managerLogin(HttpSession session, String userName, String password, Map<String, Object> map) {
+        String managerName = userName;
+        CommonResult commonResult = managerService.getManagerLogin(managerName, password);
+        if (!commonResult.isSuccess()) {
+            map.put("msg", commonResult.getMsg());
+            return "/manager/managerLogin";
+        }
+        // 登录成功
+        // 存入redis
+        //redisUtil.set("login-" + userName, userName);
+        session.setAttribute("loginUser", managerName);
+        session.setAttribute("userUuid", commonResult.getData());
+        CommonResult users = managerService.getAllUser(null);
+        map.put("userList", users.getData());
+        return "/manager/showUsers";
+    }
 
 }
