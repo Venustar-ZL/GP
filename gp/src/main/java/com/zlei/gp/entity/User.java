@@ -43,4 +43,9 @@ public class User implements Serializable {
      * 发布商品数量
      */
     private String goodsCount;
+
+    /**
+     * 用户Uuid
+     */
+    private String userUuid;
 }

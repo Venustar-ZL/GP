@@ -37,10 +37,10 @@ public interface UserMapper{
     @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info where userName = #{userName}")
     public User getUserInfoByName(@Param("userName") String userName);
 
-    @Select("select userName, createTime, updateTime, goodsCount from user_info")
+    @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info")
     public List<User> getAllUser();
 
-    @Select("select userName, createTime, updateTime, goodsCount from user_info where userName = #{userName}")
+    @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info where userName = #{userName}")
     public List<User> getAllUserByName(@Param("userName") String userName);
 
     @Update("update user_info set goodsCount = #{goodsCount} where userUuid = #{userUuid}")

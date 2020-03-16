@@ -107,7 +107,7 @@ public interface GoodsMapper {
     * @Author: ZhangLei
     * @Date: 2020/3/16
     */
-    @Select("select goodsName, picture, description, price, createTime from goods_info where userUuid = #{userUuid}")
+    @Select("select goodsName, picture, description, price, userName, createTime from goods_info where userUuid = #{userUuid}")
     public List<Goods> getGoodsInfoByUser(@Param("userUuid") String userUuid);
 
 }
