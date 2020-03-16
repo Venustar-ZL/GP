@@ -4,11 +4,9 @@ import com.zlei.gp.entity.PasswordInfo;
 import com.zlei.gp.entity.User;
 import com.zlei.gp.entity.UserNameInfo;
 import com.zlei.gp.response.CommonResult;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -33,8 +31,11 @@ public interface UserMapper{
     @Select("select userName from user_info")
     public List<UserNameInfo> getAllUserName();
 
-    @Select("select userUuid, userName, password from user_info where userUuid = #{userUuid}")
+    @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info where userUuid = #{userUuid}")
     public User getUserInfoById(@Param("userUuid") String userUuid);
+
+    @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info where userName = #{userName}")
+    public User getUserInfoByName(@Param("userName") String userName);
 
     @Select("select userName, createTime, updateTime, goodsCount from user_info")
     public List<User> getAllUser();
@@ -42,7 +43,13 @@ public interface UserMapper{
     @Select("select userName, createTime, updateTime, goodsCount from user_info where userName = #{userName}")
     public List<User> getAllUserByName(@Param("userName") String userName);
 
-    @Insert("update user_info set goodsCount = #{goodsCount} where userUuid = #{userUuid}")
+    @Update("update user_info set goodsCount = #{goodsCount} where userUuid = #{userUuid}")
     public void updateCount(@Param("goodsCount") Integer goodsCount, @Param("userUuid") String userUuid);
+
+    @Update("update user_info set userName = #{userName}, password = #{password} where userName = #{userName}")
+    public void upadteUserInfo(@Param("userName") String userName, @Param("password") String password);
+
+    @Select("select count(*) from user_info where userName = #{userName}")
+    public Integer getUseNameCount(@Param("userName") String userName);
 
 }

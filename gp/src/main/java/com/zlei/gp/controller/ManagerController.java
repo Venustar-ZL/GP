@@ -23,6 +23,13 @@ public class ManagerController {
     @Autowired
     private ManagerService managerService;
 
+    /**
+    * @Description: 获取所有注册用户
+    * @Param: [map, userName]
+    * @return: java.lang.String
+    * @Author: ZhangLei
+    * @Date: 2020/3/16
+    */
     @GetMapping("/showAllUser")
     public String showAllUser(Map<String, Object> map, @RequestParam(value = "userName", required = false) String userName) {
         CommonResult commonResult = managerService.getAllUser(userName);

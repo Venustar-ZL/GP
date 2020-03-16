@@ -9,5 +9,9 @@ public interface UserService {
 
     public CommonResult getPasswordByName(String userName, String password);
 
+    public CommonResult getUserInfo(String userUuid);
+
+    public CommonResult updateUserInfo(String userName, String password, String userUuid);
+
 
 }

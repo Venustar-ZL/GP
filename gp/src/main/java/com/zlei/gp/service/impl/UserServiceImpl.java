@@ -1,8 +1,10 @@
 package com.zlei.gp.service.impl;
 
+import com.zlei.gp.entity.Goods;
 import com.zlei.gp.entity.PasswordInfo;
 import com.zlei.gp.entity.User;
 import com.zlei.gp.entity.UserNameInfo;
+import com.zlei.gp.mapper.GoodsMapper;
 import com.zlei.gp.mapper.UserMapper;
 import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.response.ConstantEnum;
@@ -10,6 +12,7 @@ import com.zlei.gp.service.UserService;
 import com.zlei.gp.utils.PasswordUtil;
 import com.zlei.gp.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private GoodsMapper goodsMapper;
 
     // 根据账号名称获得账号密码并校验
     @Override
@@ -84,6 +90,40 @@ public class UserServiceImpl implements UserService {
         userMapper.registerUser(userUuid, userName, password, createTime);
 
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, userUuid);
+    }
+
+    @Override
+    public CommonResult getUserInfo(String userUuid) {
+        // 获取用户详情
+        User user = userMapper.getUserInfoById(userUuid);
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, user);
+    }
+
+    @Override
+    public CommonResult updateUserInfo(String userName, String password, String userUuid) {
+
+        // 用户名和密码不允许为空
+        if (userName == null || userName.length() == 0) {
+            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "用户名不允许为空");
+        }
+        if (password == null || password.length() == 0) {
+            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "密码不允许为空");
+        }
+
+        // 判断用户名是否重复(先获取原来的用户信息比较)
+        User user = userMapper.getUserInfoById(userUuid);
+        if (!user.getUserName().equals(userName)) {
+            // 用户名改变
+            int userNameCount = userMapper.getUseNameCount(userName);
+            if (userNameCount >= 1) {
+                return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "用户名已存在");
+            }
+        }
+
+        // 密码加密
+        password = PasswordUtil.passwordEncode(password);
+        userMapper.upadteUserInfo(userName, password);
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
     }
 
 }

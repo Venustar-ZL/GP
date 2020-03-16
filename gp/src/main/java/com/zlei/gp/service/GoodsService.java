@@ -17,4 +17,6 @@ public interface GoodsService {
 
     public CommonResult getShopCar(String userUuid);
 
+    public CommonResult getGoodsInfoByUser(String userUuid);
+
 }

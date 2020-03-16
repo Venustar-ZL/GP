@@ -118,4 +118,13 @@ public class GoodsServiceImpl implements GoodsService {
         }
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, shopCarList, "查询购物车成功");
     }
+
+    @Override
+    public CommonResult getGoodsInfoByUser(String userUuid) {
+        List<Goods> goodsList = goodsMapper.getGoodsInfoByUser(userUuid);
+        if (goodsList == null || goodsList.size() == 0) {
+            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "该用户尚未发布闲置物品");
+        }
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goodsList, "查询购物车成功");
+    }
 }

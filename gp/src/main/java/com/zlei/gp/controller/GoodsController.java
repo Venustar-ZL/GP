@@ -82,10 +82,20 @@ public class GoodsController {
     }
 
     // 加入购物车
-    @GetMapping("/addShopCar/{goodsUuid}")
-    public String addShopCar(@PathVariable("goodsUuid") String goodsUuid, HttpSession session) {
+    @GetMapping("/addShopCar/{goodsUuid}/{goodsName}")
+    public String addShopCar(@PathVariable("goodsUuid") String goodsUuid, @PathVariable("goodsName") String goodsName,  HttpSession session, Map<String, Object> map) {
         String userUuid = (String)session.getAttribute("userUUid");
         goodsService.addShopCar(goodsUuid, userUuid);
+
+        // 解决加入购物车后当前页面无商品信息的问题
+        CommonResult commonResult = goodsService.showGoods(goodsName);
+        if (!commonResult.isSuccess()) {
+            map.put("msg", commonResult.getMsg());
+            return "/goods/showGoods";
+        }
+        map.put("goodsList", commonResult.getData());
+        map.put("goodsName", goodsName);
+
         return "/goods/showGoods";
     }
 

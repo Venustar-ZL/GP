@@ -30,7 +30,7 @@
                 <input type="button" onclick="$('#searchForm').submit();" value="查询"/>
             </div>
         </form>
-        <!--商品展示-->
+        <!--用户列表-->
         <table class="providerTable" cellpadding="0" cellspacing="0">
             <tr class="firstTr">
                 <th width="20%">用户名</th>
@@ -45,7 +45,8 @@
                 <td th:text="${user.createTime}"></td>
                 <td th:text="${user.updateTime}"></td>
                 <td>
-                    <a th:href="@{/getUesrInfo/} + ${user.userUuid}" th:method="get" href="view.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="查看" title="查看"/></a>
+                    <a th:href="@{/getUesrInfo/} + ${user.userUuid}" th:method="get" href="userInfo.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="查看" title="查看"/></a>
+                    <a th:href="@{/toUpdateUesrInfo/} + ${user.userUuid}" th:method="get" href="updateUser.html"><img th:src="@{/img/xiugai.png}" src="../img/xiugai.png" alt="修改" title="修改"/></a>
                 </td>
             </tr>
 

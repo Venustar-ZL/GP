@@ -50,7 +50,7 @@
                 <td th:text="${goods.createTime}"></td>
                 <td>
                     <a th:href="@{/getGoodsInfo/} + ${goods.goodsUuid}" th:method="get" href="view.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="查看" title="查看"/></a>
-                    <a th:href="@{/addShopCar/} + ${goods.goodsUuid}" th:method="get" href="view.html"><img th:src="@{/img/buy2.png}" src="../img/read.png" alt="加入购物车" title="加入购物车"/></a>
+                    <a th:href="@{/addShopCar/} + ${goods.goodsUuid} + /${goodsName}" th:method="get" href="shopCar.html"><img th:src="@{/img/buy2.png}" src="../img/read.png" alt="加入购物车" title="加入购物车"/></a>
                 </td>
             </tr>
 
