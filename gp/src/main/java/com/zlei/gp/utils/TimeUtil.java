@@ -19,7 +19,7 @@ public class TimeUtil {
     * @Author: ZhangLei
     * @Date: 2020/3/16
     */
-    private static String getCurrentTime () {
+    public static String getCurrentTime () {
         Date date = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(date);

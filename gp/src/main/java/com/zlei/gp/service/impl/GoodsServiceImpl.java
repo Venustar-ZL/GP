@@ -7,12 +7,14 @@ import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.response.ConstantEnum;
 import com.zlei.gp.service.GoodsService;
 import com.zlei.gp.utils.FileUtil;
+import com.zlei.gp.utils.TimeUtil;
 import com.zlei.gp.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,7 +82,7 @@ public class GoodsServiceImpl implements GoodsService {
 
         List<Goods> goodsList = null;
 
-        if (goodsName == null) {
+        if (goodsName == null || goodsName.length() == 0) {
             goodsList = goodsMapper.getGoods();
         }
         else {
@@ -102,13 +104,14 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public CommonResult addShopCar(String goodsUuid, String userUuid) {
-        goodsMapper.addShopCar(goodsUuid, userUuid);
+        String createTime = TimeUtil.getCurrentTime();
+        goodsMapper.addShopCar(goodsUuid, userUuid, createTime);
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, null, "加入购物车成功");
     }
 
     @Override
     public CommonResult getShopCar(String userUuid) {
-        List<Goods> shopCarList = null;
+        List<Goods> shopCarList = new ArrayList<Goods>();
         List<GoodsUuids> goodsUuids = goodsMapper.getGoodsUuidByUser(userUuid);
         if (goodsUuids.size() != 0) {
         for (GoodsUuids goodsUuid : goodsUuids) {

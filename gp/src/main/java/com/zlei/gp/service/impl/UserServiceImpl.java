@@ -10,6 +10,7 @@ import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.response.ConstantEnum;
 import com.zlei.gp.service.UserService;
 import com.zlei.gp.utils.PasswordUtil;
+import com.zlei.gp.utils.TimeUtil;
 import com.zlei.gp.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
@@ -122,7 +123,8 @@ public class UserServiceImpl implements UserService {
 
         // 密码加密
         password = PasswordUtil.passwordEncode(password);
-        userMapper.upadteUserInfo(userName, password, userUuid);
+        String updateTime = TimeUtil.getCurrentTime();
+        userMapper.upadteUserInfo(userName, password, updateTime, userUuid);
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
     }
 

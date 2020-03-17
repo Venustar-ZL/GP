@@ -87,8 +87,8 @@ public interface GoodsMapper {
     * @Author: ZhangLei
     * @Date: 2020/3/16
     */
-    @Insert("insert into shopcar_info(goodsUuid, userUuid) values (#{goodsUuid}, #{userUuid})")
-    public void addShopCar(@Param("goodsUuid") String goodsUuid, @Param("userUuid") String userUuid);
+    @Insert("insert into shopcar_info(goodsUuid, userUuid, createTime) values (#{goodsUuid}, #{userUuid}, #{createTime})")
+    public void addShopCar(@Param("goodsUuid") String goodsUuid, @Param("userUuid") String userUuid, @Param("createTime") String createTime);
 
     /**
     * @Description: 显示该用户购物车

@@ -81,19 +81,19 @@ public class GoodsController {
     }
 
     // 加入购物车
-    @GetMapping("/addShopCar/{goodsUuid}/{goodsName}")
-    public String addShopCar(@PathVariable("goodsUuid") String goodsUuid, @PathVariable("goodsName") String goodsName,  HttpSession session, Map<String, Object> map) {
-        String userUuid = (String)session.getAttribute("userUUid");
+    @GetMapping("/addShopCar/{goodsUuid}")
+    public String addShopCar(@PathVariable("goodsUuid") String goodsUuid,  HttpSession session, Map<String, Object> map) {
+        // 获取当前用户的userUuid
+        String userUuid = (String)session.getAttribute("userUuid");
         goodsService.addShopCar(goodsUuid, userUuid);
 
         // 解决加入购物车后当前页面无商品信息的问题
-        CommonResult commonResult = goodsService.showGoods(goodsName);
+        CommonResult commonResult = goodsService.showGoods(null);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
             return "/goods/showGoods";
         }
         map.put("goodsList", commonResult.getData());
-        map.put("goodsName", goodsName);
 
         return "/goods/showGoods";
     }
@@ -101,14 +101,15 @@ public class GoodsController {
     // 查看购物车
     @GetMapping("/toShopCar")
     public String toShopCar(Map<String, Object> map, HttpSession session) {
-        String userUuid = (String)session.getAttribute("userUUid");
+        // 获取当前用户的userUuid
+        String userUuid = (String)session.getAttribute("userUuid");
         CommonResult commonResult = goodsService.getShopCar(userUuid);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
             return "/goods/shopCar";
         }
         map.put("goodsList", commonResult.getData());
-        return "/goods/showGoods";
+        return "/goods/shopCar";
     }
 
 
