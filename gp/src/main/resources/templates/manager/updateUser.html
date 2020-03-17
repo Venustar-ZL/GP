@@ -24,20 +24,20 @@
         </div>
         <div class="providerAdd">
             <div th:if=" ${not #strings.isEmpty(msg)}" th:text="${msg}" style="color:red; margin-left: 130px"></div>
-            <form id="addForm" th:action="@{/updateUserInfo/} + ${user.userUuid}" th:method="put" action="../manager/showUsers.html">
+            <form id="updateForm" th:action="@{/updateUserInfo/} + ${userUuid}" th:method="put" action="../manager/showUsers.html">
                 <!--div的class 为error是验证错误，ok是验证成功-->
                 <div class="">
                     <label for="userName">用户名：</label>
-                    <input type="text" name="userName" id="userName" th:value="${user.userName}"/>
+                    <input type="text" name="userName" id="userName"/>
                     <span >*请输入用户名</span>
                 </div>
                 <div>
                     <label for="password">密码：</label>
-                    <input type="password" name="password" id="password" value="******"/>
+                    <input type="password" name="password" id="password"/>
                     <span>*请输入密码</span>
                 </div>
                 <div class="providerAddBtn">
-            <input type="button" value="修改" onclick="$('#addForm').submit();"/>
+            <input type="button" value="修改" onclick="$('#updateForm').submit();"/>
             <input type="button" value="返回" onclick="history.back(-1)"/>
         </div>
             </form>

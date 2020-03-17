@@ -46,8 +46,8 @@ public interface UserMapper{
     @Update("update user_info set goodsCount = #{goodsCount} where userUuid = #{userUuid}")
     public void updateCount(@Param("goodsCount") Integer goodsCount, @Param("userUuid") String userUuid);
 
-    @Update("update user_info set userName = #{userName}, password = #{password} where userName = #{userName}")
-    public void upadteUserInfo(@Param("userName") String userName, @Param("password") String password);
+    @Update("update user_info set userName = #{userName}, password = #{password} where userUuid = #{userUuid}")
+    public void upadteUserInfo(@Param("userName") String userName, @Param("password") String password, @Param("userUuid") String userUuid);
 
     @Select("select count(*) from user_info where userName = #{userName}")
     public Integer getUseNameCount(@Param("userName") String userName);

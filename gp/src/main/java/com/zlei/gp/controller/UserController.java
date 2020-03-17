@@ -11,10 +11,7 @@ import com.zlei.gp.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -83,17 +80,26 @@ public class UserController {
             return "/manager/showUsers";
         }
         map.put("user", commonResult.getData());
+        map.put("userUuid", userUuid);
         return "/manager/updateUser";
     }
 
-    @PutMapping("/updateUserInfo/{userUuid}")
+    @PostMapping("/updateUserInfo/{userUuid}")
     public String updateUserInfo(Map<String, Object> map, String userName, String password, @PathVariable("userUuid") String userUuid) {
         CommonResult commonResult = userService.updateUserInfo(userName, password, userUuid);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
             return "/manager/updateUser";
         }
-        return "/manager/updateUser";
+
+        CommonResult allUser = managerService.getAllUser(null);
+        if (!allUser.isSuccess()) {
+            map.put("msg", allUser.getMsg());
+            return "/manager/showUsers";
+        }
+        map.put("userList", allUser.getData());
+
+        return "/manager/showUsers";
     }
 
 }

@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService {
 
         // 密码加密
         password = PasswordUtil.passwordEncode(password);
-        userMapper.upadteUserInfo(userName, password);
+        userMapper.upadteUserInfo(userName, password, userUuid);
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
     }
 
