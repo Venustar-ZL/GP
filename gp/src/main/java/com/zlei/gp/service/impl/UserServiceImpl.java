@@ -126,4 +126,10 @@ public class UserServiceImpl implements UserService {
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
     }
 
+    @Override
+    public CommonResult deleteUserInfo(String userUuid) {
+        userMapper.deleteUser(userUuid);
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
+    }
+
 }

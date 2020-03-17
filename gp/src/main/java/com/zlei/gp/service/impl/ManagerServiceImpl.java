@@ -51,7 +51,7 @@ public class ManagerServiceImpl implements ManagerService {
     public CommonResult getAllUser(String userName) {
         List<User> userList = null;
 
-        if (userName == null) {
+        if (userName == null || userName.length() == 0) {
             userList = userMapper.getAllUser();
         }
         else {

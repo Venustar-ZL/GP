@@ -102,4 +102,21 @@ public class UserController {
         return "/manager/showUsers";
     }
 
+    @GetMapping("/deleteUpdateUserInfo/{userUuid}")
+    public String deleteUserInfo(Map<String, Object> map, @PathVariable("userUuid") String userUuid) {
+        CommonResult commonResult = userService.deleteUserInfo(userUuid);
+        if (!commonResult.isSuccess()) {
+            map.put("msg", "删除失败");
+            return "/manager/showUsers";
+        }
+        CommonResult allUser = managerService.getAllUser(null);
+        if (!allUser.isSuccess()) {
+            map.put("msg", allUser.getMsg());
+            return "/manager/showUsers";
+        }
+        map.put("userList", allUser.getData());
+
+        return "/manager/showUsers";
+    }
+
 }

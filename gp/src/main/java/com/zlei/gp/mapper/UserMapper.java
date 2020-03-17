@@ -52,4 +52,6 @@ public interface UserMapper{
     @Select("select count(*) from user_info where userName = #{userName}")
     public Integer getUseNameCount(@Param("userName") String userName);
 
+    @Delete("delete from user_info where userUuid = #{userUuid}")
+    public void deleteUser(@Param("userUuid") String userUuid);
 }

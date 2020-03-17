@@ -13,5 +13,7 @@ public interface UserService {
 
     public CommonResult updateUserInfo(String userName, String password, String userUuid);
 
+    public CommonResult deleteUserInfo(String userUuid);
+
 
 }
