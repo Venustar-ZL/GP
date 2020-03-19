@@ -14,23 +14,24 @@
 </section>
 <!--主体内容-->
 <section class="publicMian ">
-    <div class="left" th:replace="main/public :: #public_left(activeUri='message')">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='show')">
 
     </div>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
-            <span>消息</span>
+            <span>热门推荐</span>
         </div>
 
-        <form id="searchForm" th:action="@{/showAllGoods}" th:method="get">
-            <div class="search">
-                <span>商品名称：</span>
-                <input type="text" th:value="${goodsName}" name="goodsName" placeholder="请输入商品的名称"/>
-                <input type="button" onclick="$('#searchForm').submit();" value="查询"/>
-            </div>
-        </form>
-        <!--消息列表->
+<!--        <form id="searchForm" th:action="@{/showAllGoods}" th:method="get">-->
+<!--            <div class="search">-->
+<!--                <span>商品名称：</span>-->
+<!--                <input type="text" th:value="${goodsName}" name="goodsName" placeholder="请输入商品的名称"/>-->
+<!--                <input type="button" onclick="$('#searchForm').submit();" value="查询"/>-->
+<!--            </div>-->
+<!--        </form>-->
+        <!--商品展示-->
+
         <table class="providerTable" cellpadding="0" cellspacing="0">
             <tr class="firstTr">
                 <th width="10%">发送人</th>
@@ -42,10 +43,6 @@
                 <td th:text="${message.fromUser}"></td>
                 <td th:text="${message.message}"></td>
                 <td th:text="${message.createTime}"></td>
-<!--                <td>-->
-<!--                    <a th:href="@{/getGoodsInfo/} + ${goods.goodsUuid}" th:method="get" href="view.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="查看" title="查看"/></a>-->
-<!--                    <a th:href="@{/addShopCar/} + ${goods.goodsUuid}" th:method="get" href="shopCar.html"><img th:src="@{/img/buy2.png}" src="../img/read.png" alt="加入购物车" title="加入购物车"/></a>-->
-<!--                </td>-->
             </tr>
 
         </table>

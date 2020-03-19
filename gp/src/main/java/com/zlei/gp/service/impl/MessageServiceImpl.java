@@ -29,14 +29,23 @@ public class MessageServiceImpl implements MessageService {
     private MessageMapper messageMapper;
 
     @Override
-    public CommonResult getAllMessage(String userUuid) {
+    public CommonResult getAMessageByName(String userUuid) {
 
         User user = userMapper.getUserInfoById(userUuid);
-        String userName = user.getUserUuid();
+        String userName = user.getUserName();
         List<Message> messageList = messageMapper.getMessageByName(userName);
         if (messageList == null || messageList.size() == 0) {
             return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "暂无消息");
         }
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, messageList, "获取成功");
+    }
+
+    @Override
+    public CommonResult getAllMessageByName(String userUuid) {
+        User user = userMapper.getUserInfoById(userUuid);
+        String userName = user.getUserName();
+        List<Message> messageList = messageMapper.getAllMessageByName(userName);
+
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, messageList, "获取成功");
     }
 }

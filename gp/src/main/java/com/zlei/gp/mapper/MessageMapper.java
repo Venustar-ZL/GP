@@ -22,4 +22,7 @@ public interface MessageMapper {
     @Select("select message, fromUser, createTime from message_info where toUser = #{userName} order by createTime desc limit 1 group by toUser")
     public List<Message> getMessageByName(@Param("userName") String userName);
 
+    @Select("select message, fromUser, createTime from message_info where toUser = #{userName}")
+    public List<Message> getAllMessageByName(@Param("userName") String userName);
+
 }

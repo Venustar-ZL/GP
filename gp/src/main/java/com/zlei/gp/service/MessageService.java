@@ -4,6 +4,8 @@ import com.zlei.gp.response.CommonResult;
 
 public interface MessageService {
 
-    public CommonResult getAllMessage(String userUuid);
+    public CommonResult getAMessageByName(String userUuid);
+
+    public CommonResult getAllMessageByName(String userUuid);
 
 }

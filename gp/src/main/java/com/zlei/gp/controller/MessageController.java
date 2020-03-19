@@ -27,7 +27,7 @@ public class MessageController {
     public String toMessage(Map<String, Object> map, HttpSession session) {
         String userUuid = (String) session.getAttribute("userUuid");
         // 获取当前用户所接收的所有消息
-        CommonResult commonResult = messageService.getAllMessage(userUuid);
+        CommonResult commonResult = messageService.getAMessageByName(userUuid);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
             return "/message/showMsg";
