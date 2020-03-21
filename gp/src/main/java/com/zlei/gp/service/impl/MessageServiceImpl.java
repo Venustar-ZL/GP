@@ -29,7 +29,7 @@ public class MessageServiceImpl implements MessageService {
     private MessageMapper messageMapper;
 
     @Override
-    public CommonResult getAMessageByName(String userUuid) {
+    public CommonResult getMessageByName(String userUuid) {
 
         User user = userMapper.getUserInfoById(userUuid);
         String userName = user.getUserName();
