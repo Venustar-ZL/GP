@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -72,8 +73,9 @@ public class UserController {
         return "/manager/showUsers";
     }
 
-    @GetMapping("/toUpdateUserInfo/{userUuid}")
-    public String toUpdateUserInfo(Map<String, Object> map, @PathVariable("userUuid") String userUuid) {
+    @GetMapping("/toUpdateUserInfo")
+    public String toUpdateUserInfo(Map<String, Object> map, HttpSession session) {
+        String userUuid = (String)session.getAttribute("userUuid");
         CommonResult commonResult = userService.getUserInfo(userUuid);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
@@ -84,8 +86,9 @@ public class UserController {
         return "/manager/updateUser";
     }
 
-    @PostMapping("/updateUserInfo/{userUuid}")
-    public String updateUserInfo(Map<String, Object> map, String userName, String password, @PathVariable("userUuid") String userUuid) {
+    @PostMapping("/updateUserInfo")
+    public String updateUserInfo(HttpSession session, Map<String, Object> map, String userName, String password) {
+        String userUuid = (String)session.getAttribute("userUuid");
         CommonResult commonResult = userService.updateUserInfo(userName, password, userUuid);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
@@ -98,7 +101,7 @@ public class UserController {
             return "/manager/showUsers";
         }
         map.put("userList", allUser.getData());
-
+        session.setAttribute("loginUser", userName);
         return "/manager/showUsers";
     }
 

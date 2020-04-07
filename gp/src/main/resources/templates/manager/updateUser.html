@@ -24,7 +24,7 @@
         </div>
         <div class="providerAdd">
             <div th:if=" ${not #strings.isEmpty(msg)}" th:text="${msg}" style="color:red; margin-left: 130px"></div>
-            <form id="updateForm" th:action="@{/updateUserInfo/} + ${userUuid}" th:method="put" action="../manager/showUsers.html">
+            <form id="updateForm" th:action="@{/updateUserInfo}" th:method="put" action="../manager/showUsers.html">
                 <!--div的class 为error是验证错误，ok是验证成功-->
                 <div class="">
                     <label for="userName">用户名：</label>
