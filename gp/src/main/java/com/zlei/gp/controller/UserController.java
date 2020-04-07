@@ -86,9 +86,8 @@ public class UserController {
         return "/manager/updateUser";
     }
 
-    @PostMapping("/updateUserInfo")
-    public String updateUserInfo(HttpSession session, Map<String, Object> map, String userName, String password) {
-        String userUuid = (String)session.getAttribute("userUuid");
+    @PostMapping("/updateUserInfo/{userUuid}")
+    public String updateUserInfo(HttpSession session, Map<String, Object> map, String userName, String password, @PathVariable("userUuid") String userUuid) {
         CommonResult commonResult = userService.updateUserInfo(userName, password, userUuid);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
