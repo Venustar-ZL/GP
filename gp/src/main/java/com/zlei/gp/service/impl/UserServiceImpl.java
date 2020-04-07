@@ -134,4 +134,13 @@ public class UserServiceImpl implements UserService {
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
     }
 
+    @Override
+    public CommonResult getUserInfoByName(String userName) {
+        User user = userMapper.getUserInfoByName(userName);
+        if (user == null) {
+            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "用户名不存在");
+        }
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, user);
+    }
+
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head">
+
+</head>
+<body>
+<!--头部-->
+<header class="publicHeader" th:replace="main/public :: #public_header">
+
+</header>
+<!--时间-->
+<section class="publicTime" th:replace="main/public :: #public_time">
+
+</section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='message')">
+
+    </div>
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>发送消息</span>
+        </div>
+
+        <form id="searchForm" th:action="@{/sendMessage}" th:method="post">
+            <div class="search">
+                <span>用户名：</span>
+                <input type="text" th:value="${userName}" name="userName" placeholder="请输入用户名"/>
+                <input type="text" th:value="${message}" name="message" placeholder="请输入消息"/>
+                <input type="button" onclick="$('#searchForm').submit();" value="发送"/>
+                <input type="button" value="返回" onclick="" />
+            </div>
+        </form>
+
+    </div>
+</section>
+
+<footer class="footer" th:replace="main/public :: #public_footer"></footer>
+
+<script src="../js/jquery.js"></script>
+</body>
+</html>

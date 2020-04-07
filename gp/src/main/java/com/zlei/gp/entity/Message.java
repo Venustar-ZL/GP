@@ -32,4 +32,11 @@ public class Message {
      */
     private String createTime;
 
+    /**
+     * 是否已读
+     * 1 表示已读
+     * 0 表示未读
+     */
+    private Integer isRead;
+
 }

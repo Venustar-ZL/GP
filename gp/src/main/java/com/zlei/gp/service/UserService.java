@@ -15,5 +15,7 @@ public interface UserService {
 
     public CommonResult deleteUserInfo(String userUuid);
 
+    public CommonResult getUserInfoByName(String userName);
+
 
 }

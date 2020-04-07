@@ -14,23 +14,22 @@
 </section>
 <!--主体内容-->
 <section class="publicMian ">
-    <div class="left" th:replace="main/public :: #public_left(activeUri='show')">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='message')">
 
     </div>
     <div class="right">
         <div class="location">
             <strong>你现在所在的位置是:</strong>
-            <span>热门推荐</span>
+            <span>消息查看</span>
         </div>
 
-<!--        <form id="searchForm" th:action="@{/showAllGoods}" th:method="get">-->
-<!--            <div class="search">-->
-<!--                <span>商品名称：</span>-->
-<!--                <input type="text" th:value="${goodsName}" name="goodsName" placeholder="请输入商品的名称"/>-->
-<!--                <input type="button" onclick="$('#searchForm').submit();" value="查询"/>-->
-<!--            </div>-->
-<!--        </form>-->
-        <!--商品展示-->
+        <form id="searchForm" th:action="@{/toSendMessage}" th:method="get">
+            <div class="search">
+                <span>用户名称：</span>
+                <input type="text" th:value="${userName}" name="goodsName" placeholder="请输入用户的名称"/>
+                <input type="button" onclick="$('#searchForm').submit();" value="查询"/>
+            </div>
+        </form>
 
         <table class="providerTable" cellpadding="0" cellspacing="0">
             <tr class="firstTr">
@@ -44,8 +43,12 @@
                 <td th:text="${message.message}"></td>
                 <td th:text="${message.createTime}"></td>
             </tr>
-
         </table>
+
+        发送消息---><a th:href="@{/toSendMessage}" th:method="get" href="sendMsg.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="发送消息" title="发送消息"/></a>
+        <br>
+        发起聊天---><a th:href="@{/toChat}" th:method="get" href="message.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="发起聊天" title="发起聊天"/></a>
+
 
     </div>
 </section>

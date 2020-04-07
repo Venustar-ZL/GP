@@ -7,6 +7,7 @@ import com.zlei.gp.mapper.UserMapper;
 import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.response.ConstantEnum;
 import com.zlei.gp.service.MessageService;
+import com.zlei.gp.utils.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,5 +48,13 @@ public class MessageServiceImpl implements MessageService {
         List<Message> messageList = messageMapper.getAllMessageByName(userName);
 
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, messageList, "获取成功");
+    }
+
+    @Override
+    public CommonResult insertMessage(String message, String fromUser, String toUser) {
+        String createTime = TimeUtil.getCurrentTime();
+        int isRead = 0;
+        messageMapper.insertMessage(message, fromUser, toUser, createTime, isRead);
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "发送成功");
     }
 }

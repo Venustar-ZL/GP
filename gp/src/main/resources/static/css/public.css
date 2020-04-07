@@ -258,6 +258,67 @@ li{
     color: #fff;
 }
 
+/*发送信息栏*/
+.send{
+    height:300px;
+    line-height:50px;
+    background: #f6fafd;
+    padding-left: 24px;
+    color: #000;
+}
+.send input[type='text']{
+    width: 200px;
+    height: 500px;
+    outline: none;
+    padding-left: 10px;
+    border: 1px solid #8ab2d5;
+    border-radius: 4px;
+}
+.send input[type='button']{
+    margin-left: 20px;
+    width: 100px;
+    padding: 0 20px;
+    height: 30px;
+    border: 1px solid #7ba92c;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    background:#87c212 url("../img/search.png") 10px center no-repeat;
+}
+.send input[type='button']:focus{
+    outline: none;
+    background-color: #5d8410;
+}
+.send a{
+    width: 80px;
+    padding-left:40px;
+    float: right;
+    margin: 10px 60px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #0c89de;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    background:#47acf1 url("../img/tianjia.png") 10px center no-repeat;
+    display: inline-block;
+}
+.send a:hover,.search a:active{
+    background-color: #0778c5;
+}
+.send span{
+    margin-left: 10px;
+}
+.send select{
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    border-radius: 4px;
+    border: 1px solid #0c89de;
+    outline: none;
+}
+
+
 
 
 

@@ -1,11 +1,13 @@
 package com.zlei.gp.mapper;
 
 import com.zlei.gp.entity.Message;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -19,10 +21,13 @@ import java.util.List;
 @Component
 public interface MessageMapper {
 
-    @Select("select message, fromUser, createTime from message_info where toUser = #{userName} order by createTime desc limit 1 group by toUser")
+    @Select("select message, fromUser, createTime from message_info where toUser = #{userName} and isRead = 0 order by fromUser")
     public List<Message> getMessageByName(@Param("userName") String userName);
 
     @Select("select message, fromUser, createTime from message_info where toUser = #{userName}")
     public List<Message> getAllMessageByName(@Param("userName") String userName);
+
+    @Insert("insert into message_info (message, fromUser, toUser, createTime, isRead) values (#{message}, #{fromUser}, #{toUser}, #{createTime}, #{isRead})")
+    public void insertMessage(@Param("message") String message, @Param("fromUser") String fromUser, @Param("toUser") String toUser, @Param("createTime") String createTime, @Param("isRead") int isRead);
 
 }

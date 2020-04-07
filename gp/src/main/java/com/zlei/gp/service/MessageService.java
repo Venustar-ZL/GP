@@ -8,4 +8,6 @@ public interface MessageService {
 
     public CommonResult getAllMessageByName(String userUuid);
 
+    public CommonResult insertMessage(String message, String fromUser, String toUser);
+
 }
