@@ -125,12 +125,14 @@ public class UserServiceImpl implements UserService {
         password = PasswordUtil.passwordEncode(password);
         String updateTime = TimeUtil.getCurrentTime();
         userMapper.upadteUserInfo(userName, password, updateTime, userUuid);
+        goodsMapper.updateUserInGoods(userName, userUuid);
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
     }
 
     @Override
     public CommonResult deleteUserInfo(String userUuid) {
         userMapper.deleteUser(userUuid);
+        goodsMapper.deleteAllGoodsByUser(userUuid);
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
     }
 

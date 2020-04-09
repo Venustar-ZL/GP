@@ -2,11 +2,10 @@ package com.zlei.gp.mapper;
 
 import com.zlei.gp.entity.Goods;
 import com.zlei.gp.entity.GoodsUuids;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -109,5 +108,25 @@ public interface GoodsMapper {
     */
     @Select("select goodsName, picture, description, price, userName, createTime from goods_info where userUuid = #{userUuid}")
     public List<Goods> getGoodsInfoByUser(@Param("userUuid") String userUuid);
+    
+    /**
+    * @Description: 删除该用户上传的所有商品
+    * @Param: [userUuid]
+    * @return: void
+    * @Author: ZhangLei
+    * @Date: 2020/4/9
+    */
+    @Delete("delete from goods_info where userUuid = #{userUuid}")
+    public void deleteAllGoodsByUser(@Param("userUuid") String userUuid);
+    
+    /**
+    * @Description: 修改商品的上传用户名
+    * @Param: [userName, userUuid]
+    * @return: void
+    * @Author: ZhangLei
+    * @Date: 2020/4/9
+    */
+    @Select("update goods_info set userName = #{userName} where userUuid = #{userUuid}")
+    public void updateUserInGoods(@Param("userName") String userName, @Param("userUuid") String userUuid);
 
 }
