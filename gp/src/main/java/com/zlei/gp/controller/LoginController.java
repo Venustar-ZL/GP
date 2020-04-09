@@ -101,7 +101,7 @@ public class LoginController {
         // 存入redis
         //redisUtil.set("login-" + userName, userName);
         session.setAttribute("loginUser", managerName);
-        session.setAttribute("userUuid", commonResult.getData());
+        session.setAttribute("managerUuid", commonResult.getData());
         CommonResult users = managerService.getAllUser(null);
         map.put("userList", users.getData());
         return "/manager/showUsers";
