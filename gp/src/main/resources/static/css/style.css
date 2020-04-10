@@ -358,6 +358,46 @@ input[type='reset']:active, input[type='reset']:focus, .providerView a:hover, .p
     color: #faca0d;
 }
 
+.providerAdd li {
+    float: left;
+    margin-right: 1px;
+}
+.providerAdd li a {
+    line-height: 20px;
+    text-decoration: none;
+    background: #DDDDDD;
+    color: #666666;
+    display: block;
+    width: 80px;
+    text-align: center;
+}
+.providerAdd li a:hover {
+    background: red;
+    color: yellow;
+}
+.providerAdd li ul {
+    display: none;
+    list-style: none;
+    padding: 0;
+    position: relative;
+}
+.providerAdd li:hover ul {
+    display: block;
+    width: 80px;
+}
+.providerAdd li:hover ul li ul {
+    display: none;
+}
+.providerAdd li ul li:hover ul {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 80px;
+}
+
+
+
+
 /*验证错误*/
 .providerAdd .error span {
     color: red;
