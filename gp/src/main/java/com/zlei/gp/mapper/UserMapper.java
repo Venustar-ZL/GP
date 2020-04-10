@@ -40,6 +40,9 @@ public interface UserMapper{
     @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info")
     public List<User> getAllUser();
 
+    @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info where userUuid != #{userUuid}")
+    public List<User> getAllUserNotMe(@Param("userUuid") String userUuid);
+
     @Select("select userUuid, userName, createTime, updateTime, goodsCount from user_info where userName = #{userName}")
     public List<User> getAllUserByName(@Param("userName") String userName);
 

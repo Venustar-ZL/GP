@@ -17,5 +17,7 @@ public interface UserService {
 
     public CommonResult getUserInfoByName(String userName);
 
+    public CommonResult getAllUserNotMe(String userUuid);
+
 
 }

@@ -18,8 +18,8 @@
 
 <br />
 接收人：
-<select>
-    <option id = "toUser" th:each="user : ${userList}" th:text="${user.userName}"></option>
+<select id = "toUser">
+    <option th:each="user : ${userList}" th:text="${user.userName}" th:selected="${user.userName}"></option>
 </select>
 消息：<input id="text" type="text" />
 <button onclick="send()">发送</button>
@@ -93,7 +93,8 @@
         //获取输入的文本信息进行发送
         var message = document.getElementById('text').value;
         var toUser = document.getElementById('toUser').value;
-        var socketMsg = {msg:message,toUser:toUser};
+        var fromUser = document.getElementById("nickname").value;
+        var socketMsg = {msg:message,toUser:toUser,fromUser:fromUser};
         if(toUser === ''){
             //群聊.
             socketMsg.type = 0;

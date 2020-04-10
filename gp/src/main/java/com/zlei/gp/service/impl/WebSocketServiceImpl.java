@@ -34,7 +34,7 @@ public class WebSocketServiceImpl {
     // 用户名称
     private String nickname;
 
-    //用来记录sessionId和该session进行绑定
+    //用来记录userName和该session进行绑定
     private static Map<String,Session> map = new HashMap<String, Session>();
 
     /**
@@ -44,11 +44,10 @@ public class WebSocketServiceImpl {
     public void onOpen(Session session, @PathParam("nickname") String nickname) {
         this.session = session;
         this.nickname = nickname;
-        map.put(session.getId(), session);
+        map.put(nickname, session);
 
         webSocketSet.add(this);     //加入set中
-        System.out.println("有新连接加入！当前在线人数为" + webSocketSet.size());
-        broadcast(this.nickname + "上线了----他的频道Id是" + session.getId());
+        broadcast(this.nickname + "上线了");
 //        this.session.getAsyncRemote().sendText(this.nickname + "上线了----他的频道Id是" + session.getId());
     }
 
@@ -75,7 +74,7 @@ public class WebSocketServiceImpl {
             socketMsg = objectMapper.readValue(message, SocketMsg.class);
             if (socketMsg.getType() == 1) {
                 // 单聊 需找到发送者和接收者
-                socketMsg.setFromUser(session.getId());
+                socketMsg.setFromUser(nickname);
                 Session fromSession = map.get(socketMsg.getFromUser());
                 Session toSession = map.get(socketMsg.getToUser());
                 // 发送给接收者
@@ -85,7 +84,7 @@ public class WebSocketServiceImpl {
                     toSession.getAsyncRemote().sendText(nickname + ":" + socketMsg.getMsg());
                 }
                 else {
-                    fromSession.getAsyncRemote().sendText("系统消息:对方不在线或者您输入的频道Id不对");
+                    fromSession.getAsyncRemote().sendText("系统消息:对方不在线");
                 }
             }
             else {

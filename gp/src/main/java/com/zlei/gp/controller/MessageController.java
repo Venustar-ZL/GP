@@ -1,7 +1,6 @@
 package com.zlei.gp.controller;
 
 import com.zlei.gp.entity.User;
-import com.zlei.gp.mapper.UserMapper;
 import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.service.ManagerService;
 import com.zlei.gp.service.MessageService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,7 +71,7 @@ public class MessageController {
         CommonResult userCommonResult = userService.getUserInfo(userUuid);
         User user = (User)userCommonResult.getData();
         String userName = user.getUserName();
-        CommonResult CommonResult = managerService.getAllUser(null);
+        CommonResult CommonResult = userService.getAllUserNotMe(userUuid);
         map.put("userList", CommonResult.getData());
         map.put("userName", userName);
         return "/message/message";

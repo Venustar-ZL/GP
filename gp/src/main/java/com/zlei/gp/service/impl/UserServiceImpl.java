@@ -145,4 +145,13 @@ public class UserServiceImpl implements UserService {
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, user);
     }
 
+    @Override
+    public CommonResult getAllUserNotMe(String userUuid) {
+        List<User> userList = userMapper.getAllUserNotMe(userUuid);
+        if (userList == null) {
+            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "暂无用户信息");
+        }
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, userList);
+    }
+
 }
