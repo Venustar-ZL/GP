@@ -19,5 +19,9 @@ public interface UserService {
 
     public CommonResult getAllUserNotMe(String userUuid);
 
+    public CommonResult getLoginStatusByName(String userName);
+
+    public CommonResult updateLoginStatusToDown(String userName);
+
 
 }

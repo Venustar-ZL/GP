@@ -45,6 +45,12 @@ public class LoginController {
     public String login(HttpSession session, String userName, String password, Map<String, Object> map) {
         log.info(userName);
 
+        CommonResult loginCommonResult = userService.getLoginStatusByName(userName);
+        if (!loginCommonResult.isSuccess()) {
+            map.put("msg", loginCommonResult.getMsg());
+            return "/main/login";
+        }
+
         CommonResult commonResult = userService.getPasswordByName(userName, password);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
@@ -65,6 +71,8 @@ public class LoginController {
      */
     @GetMapping("/loginout")
     public String logout(HttpSession session) {
+        String userName = (String)session.getAttribute("loginUser");
+        userService.updateLoginStatusToDown(userName);
         session.removeAttribute("loginUser");
         session.invalidate();
         return "redirect:/index.html";

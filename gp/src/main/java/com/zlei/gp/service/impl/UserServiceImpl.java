@@ -68,6 +68,8 @@ public class UserServiceImpl implements UserService {
             return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "密码错误");
         }
 
+        userMapper.updateLoginStatusToUp(userName);
+
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, userUuid);
     }
 
@@ -152,6 +154,21 @@ public class UserServiceImpl implements UserService {
             return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "暂无用户信息");
         }
         return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, userList);
+    }
+
+    @Override
+    public CommonResult getLoginStatusByName(String userName) {
+        int isLogin = userMapper.getLoginStatusByName(userName);
+        if (isLogin == 1) {
+            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "账号已登陆");
+        }
+        return CommonResult.buildWithData(ConstantEnum.GLOBAL_SUCCESS, null);
+    }
+
+    @Override
+    public CommonResult updateLoginStatusToDown(String userName) {
+        userMapper.updateLoginStatusToDown(userName);
+        return null;
     }
 
 }

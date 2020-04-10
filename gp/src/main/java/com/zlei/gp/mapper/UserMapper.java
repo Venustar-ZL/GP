@@ -57,4 +57,13 @@ public interface UserMapper{
 
     @Delete("delete from user_info where userUuid = #{userUuid}")
     public void deleteUser(@Param("userUuid") String userUuid);
+
+    @Select("select isLogin from user_info where userName = #{userName}")
+    public int getLoginStatusByName(@Param("userName") String userName);
+
+    @Update("update user_info set isLogin = 1 where userName = #{userName}")
+    public void updateLoginStatusToUp(@Param("userName") String userName);
+
+    @Update("update user_info set isLogin = 0 where userName = #{userName}")
+    public void updateLoginStatusToDown(@Param("userName") String userName);
 }
