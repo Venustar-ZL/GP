@@ -1,18 +1,18 @@
 package com.zlei.gp.controller;
 
 import com.zlei.gp.entity.User;
+import com.zlei.gp.mapper.UserMapper;
 import com.zlei.gp.response.CommonResult;
+import com.zlei.gp.service.ManagerService;
 import com.zlei.gp.service.MessageService;
 import com.zlei.gp.service.UserService;
-import com.zlei.gp.service.WebSocketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import javax.servlet.http.HttpSession;
-import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,6 +30,9 @@ public class MessageController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ManagerService managerService;
 
     @GetMapping("/toMessage")
     public String toMessage(Map<String, Object> map, HttpSession session) {
@@ -65,7 +68,14 @@ public class MessageController {
     }
 
     @GetMapping("/toChat")
-    public String toChat() {
+    public String toChat(HttpSession session, Map<String, Object> map) {
+        String userUuid  = (String)session.getAttribute("userUuid");
+        CommonResult userCommonResult = userService.getUserInfo(userUuid);
+        User user = (User)userCommonResult.getData();
+        String userName = user.getUserName();
+        CommonResult CommonResult = managerService.getAllUser(null);
+        map.put("userList", CommonResult.getData());
+        map.put("userName", userName);
         return "/message/message";
     }
 

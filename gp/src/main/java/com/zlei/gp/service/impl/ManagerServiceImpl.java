@@ -58,7 +58,7 @@ public class ManagerServiceImpl implements ManagerService {
             userList = userMapper.getAllUserByName(userName);
         }
         if (userList.size() == 0) {
-            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "暂无商品信息");
+            return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "暂无用户信息");
         }
 
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, userList, "查询成功");

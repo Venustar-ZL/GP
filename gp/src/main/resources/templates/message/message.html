@@ -1,8 +1,6 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>My WebSocket</title>
-
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head">
     <style>
         #message{
             margin-top:40px;
@@ -10,21 +8,25 @@
             padding:20px;
         }
     </style>
-
 </head>
+
 <body>
 
-用户名称：<input type="text" id="nickname"/>
-<button onclick="conectWebSocket()">连接WebSocket</button>
-<button onclick="closeWebSocket()">断开连接</button>
+用户名称：<input id="nickname" th:value="${userName}">
 <hr />
 
 
 <br />
+接收人：
+<select>
+    <option id = "toUser" th:each="user : ${userList}" th:text="${user.userName}"></option>
+</select>
 消息：<input id="text" type="text" />
-接收人<input id="toUser" type="text" />
-<button onclick="send()">发送消息</button>
+<button onclick="send()">发送</button>
 <div id="message"></div>
+<body οnlοad="conectWebSocket();">
+</body>
+<button onclick="closeWebSocket()">结束聊天</button>
 </body>
 
 <script type="text/javascript">
@@ -33,7 +35,6 @@
     function conectWebSocket(){
 
         var nickname = document.getElementById("nickname").value;
-        var toUser = document.getElementById("toUser").value;
         if(nickname===""){
             alert("请输入昵称");
             return;
@@ -73,6 +74,7 @@
         }
     }
 
+    window.onload = conectWebSocket;
 
 
 
@@ -101,6 +103,11 @@
         }
 
         websocket.send(JSON.stringify(socketMsg));
+    }
+</script>
+<script type="text/javascript">
+    window.οnlοad=function(){
+        conectWebSocket();
     }
 </script>
 </html>
