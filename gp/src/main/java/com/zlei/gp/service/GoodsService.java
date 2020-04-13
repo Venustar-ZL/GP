@@ -21,4 +21,6 @@ public interface GoodsService {
 
     public CommonResult showGoodsBySort(String sortType);
 
+    public CommonResult deleteGoods(String userUuid, String goodsUuid);
+
 }

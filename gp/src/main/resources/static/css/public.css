@@ -151,6 +151,9 @@ li{
 .list li:nth-child(5){
     background: url("../img/buy2.png") 0  center no-repeat;
 }
+.list li:nth-child(6){
+    background: url("../img/gys.png") 0  center no-repeat;
+}
 .list li:hover{
     background-color: #acd5f5;
     border-radius: 4px;

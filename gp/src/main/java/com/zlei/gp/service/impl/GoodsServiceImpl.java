@@ -137,7 +137,7 @@ public class GoodsServiceImpl implements GoodsService {
         if (goodsList == null || goodsList.size() == 0) {
             return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "该用户尚未发布闲置物品");
         }
-        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goodsList, "查询购物车成功");
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goodsList, "查询成功");
     }
 
     @Override
@@ -155,5 +155,19 @@ public class GoodsServiceImpl implements GoodsService {
             }
         }
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goodsList, "查询成功");
+    }
+
+    @Override
+    public CommonResult deleteGoods(String userUuid, String goodsUuid) {
+        // 先删除商品信息
+        goodsMapper.deleteGoodsInfo(goodsUuid);
+
+        // 将用户的发布商品数量减1
+        int goodsCount = goodsMapper.getUserPostCount(userUuid);
+        userMapper.updateCount(goodsCount, userUuid);
+
+        // 再删除分类表中对应的记录
+        sortMapper.deleteGoodsInSort(goodsUuid);
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, null, "删除成功");
     }
 }

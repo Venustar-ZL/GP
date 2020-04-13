@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en" th:replace="main/public :: #public_head">
+
+</head>
+<body>
+<!--头部-->
+<header class="publicHeader" th:replace="main/public :: #public_header">
+
+</header>
+<!--时间-->
+<section class="publicTime" th:replace="main/public :: #public_time">
+
+</section>
+<!--主体内容-->
+<section class="publicMian ">
+    <div class="left" th:replace="main/public :: #public_left(activeUri='mine')">
+
+    </div>
+    <div class="right">
+        <div class="location">
+            <strong>你现在所在的位置是:</strong>
+            <span>我发布的</span>
+        </div>
+        <!--商品展示-->
+        <table class="providerTable" cellpadding="0" cellspacing="0">
+            <tr class="firstTr">
+                <th width="10%">商品名称</th>
+                <th width="20%">商品图片</th>
+                <th width="15%">商品描述</th>
+                <th width="10%">商品价格</th>
+                <th width="10%">发布人</th>
+                <th width="25%">发布时间</th>
+                <th width="10%">操作</th>
+            </tr>
+            <tr th:each="goods : ${goodsList}">
+                <td th:text="${goods.goodsName}"></td>
+                <td><img th:src="${goods.picture}" th:width="60px" th:height="30px"></td>
+                <td th:text="${goods.description}"></td>
+                <td th:text="${goods.price}"></td>
+                <td th:text="${goods.userName}"></td>
+                <td th:text="${goods.createTime}"></td>
+                <td>
+                    <a th:href="@{/getGoodsInfo/} + ${goods.goodsUuid}" th:method="get" href="view.html"><img th:src="@{/img/read.png}" src="../img/read.png" alt="查看" title="查看"/></a>
+                    <a th:href="@{/deleteGoodsInfo/} + ${goods.goodsUuid}" th:method="get" href="view.html"><img th:src="@{/img/schu.png}" src="../img/schu.png" alt="删除" title="删除"/></a>
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+</section>
+
+<footer class="footer" th:replace="main/public :: #public_footer"></footer>
+
+<script src="../js/jquery.js"></script>
+</body>
+</html>

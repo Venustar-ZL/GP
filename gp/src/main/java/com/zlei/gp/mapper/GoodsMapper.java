@@ -129,4 +129,7 @@ public interface GoodsMapper {
     @Select("update goods_info set userName = #{userName} where userUuid = #{userUuid}")
     public void updateUserInGoods(@Param("userName") String userName, @Param("userUuid") String userUuid);
 
+    @Delete("delete from goods_info where goodsUuid = #{goodsUuid}")
+    public void deleteGoodsInfo(@Param("goodsUuid") String goodsUuid);
+
 }

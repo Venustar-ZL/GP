@@ -2,7 +2,6 @@ package com.zlei.gp.controller;
 
 import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.service.GoodsService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -123,6 +122,44 @@ public class GoodsController {
         map.put("goodsList", commonResult.getData());
         return "/goods/shopCar";
     }
+
+    // 查看我发布的
+    @GetMapping("/toMine")
+    public String toMine(Map<String, Object> map,  HttpSession session) {
+        // 获取当前用户的userUuid
+        String userUuid = (String)session.getAttribute("userUuid");
+
+        CommonResult commonResult = goodsService.getGoodsInfoByUser(userUuid);
+        if (!commonResult.isSuccess()) {
+            map.put("msg", commonResult.getMsg());
+            return "/goods/mine";
+        }
+        map.put("goodsList", commonResult.getData());
+        return "/goods/mine";
+    }
+
+    // 删除发布的商品
+    // 用户表发布数量减1
+    // 分类表对应商品删除
+    @GetMapping("/deleteGoodsInfo/{goodsUuid}")
+    public String deleteGoods(Map<String, Object> map, HttpSession session, @PathVariable("goodsUuid") String goodsUuid) {
+        String userUuid = (String) session.getAttribute("userUuid");
+        CommonResult commonResult = goodsService.deleteGoods(userUuid, goodsUuid);
+        if (!commonResult.isSuccess()) {
+            map.put("msg", "删除失败");
+            return "/goods/mine";
+        }
+
+        // 获取删除后的商品列表
+        CommonResult goodsCommonResult = goodsService.getGoodsInfoByUser(userUuid);
+        if (!goodsCommonResult.isSuccess()) {
+            map.put("msg", goodsCommonResult.getMsg());
+            return "/goods/mine";
+        }
+        map.put("goodsList", goodsCommonResult.getData());
+        return "/goods/mine";
+    }
+
 
 
 }
