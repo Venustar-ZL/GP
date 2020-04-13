@@ -30,6 +30,21 @@
                 <input type="button" onclick="$('#searchForm').submit();" value="查询"/>
             </div>
         </form>
+        <form id="sortForm" th:action="@{/showAllGoodsBySort}" th:method="get">
+            <div class = "search">
+                <label for="sort">分类：</label>
+                <select name="sort" id="sort">
+                    <option value=""></option>
+                    <option value="手机数码">手机数码</option>
+                    <option value="生活百货">生活百货</option>
+                    <option value="运动户外">运动户外</option>
+                    <option value="服装">服装</option>
+                    <option value="书籍">书籍</option>
+                    <option value="游戏装备">游戏装备</option>
+                    <input type="button" onclick="$('#sortForm').submit();" value="查询"/>
+                </select>
+            </div>
+        </form>
         <!--商品展示-->
         <table class="providerTable" cellpadding="0" cellspacing="0">
             <tr class="firstTr">

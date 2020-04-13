@@ -2,6 +2,7 @@ package com.zlei.gp.service.impl;
 
 import com.zlei.gp.entity.*;
 import com.zlei.gp.mapper.GoodsMapper;
+import com.zlei.gp.mapper.SortMapper;
 import com.zlei.gp.mapper.UserMapper;
 import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.response.ConstantEnum;
@@ -9,6 +10,7 @@ import com.zlei.gp.service.GoodsService;
 import com.zlei.gp.utils.FileUtil;
 import com.zlei.gp.utils.TimeUtil;
 import com.zlei.gp.utils.UuidUtil;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,6 +36,9 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private SortMapper sortMapper;
+
     @Override
     public CommonResult uploadGoodsPicture(MultipartFile file) {
 
@@ -50,7 +55,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public CommonResult addGoods(String goodsName, String description, String price, MultipartFile picture, String userUuid) {
+    public CommonResult addGoods(String goodsName, String description, String price, MultipartFile picture, String userUuid, String sort) {
 
         UploadResult uploadResult = FileUtil.uploadToLinux(picture);
         if (uploadResult.getResult() == false) {
@@ -73,6 +78,10 @@ public class GoodsServiceImpl implements GoodsService {
 
         int goodsCount = goodsMapper.getUserPostCount(userUuid);
         userMapper.updateCount(goodsCount, userUuid);
+
+        // 将商品添加至分类表
+        String sortType = sort;
+        sortMapper.insertIntoSort(sortType, goodsUuid);
 
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, null, "图片上传成功");
     }
@@ -129,5 +138,22 @@ public class GoodsServiceImpl implements GoodsService {
             return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_FALL_CUSTOM, null, "该用户尚未发布闲置物品");
         }
         return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goodsList, "查询购物车成功");
+    }
+
+    @Override
+    public CommonResult showGoodsBySort(String sortType) {
+        List<Goods> goodsList = new ArrayList<>();
+        if (Strings.isEmpty(sortType)) {
+            goodsList = goodsMapper.getGoods();
+        }
+        else {
+            List<Sort> sortList = sortMapper.getAllGoodsBySort(sortType);
+            for (Sort sort : sortList) {
+                String goodsUuid = sort.getGoodsUuid();
+                Goods goods = goodsMapper.getGoodsById(goodsUuid);
+                goodsList.add(goods);
+            }
+        }
+        return CommonResult.buildWithDatAndMessage(ConstantEnum.GLOBAL_SUCCESS, goodsList, "查询成功");
     }
 }

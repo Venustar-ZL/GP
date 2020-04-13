@@ -2,6 +2,7 @@ package com.zlei.gp.controller;
 
 import com.zlei.gp.response.CommonResult;
 import com.zlei.gp.service.GoodsService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -49,9 +50,9 @@ public class GoodsController {
 
     // 发布商品
     @PostMapping("/addGoods")
-    public String addGoods(Map<String, Object> map, String goodsName, String description, String price, MultipartFile picture, HttpSession session) {
+    public String addGoods(Map<String, Object> map, String goodsName, String description, String price, String sort, MultipartFile picture, HttpSession session) {
         String userUuid = (String)session.getAttribute("userUuid");
-        CommonResult commonResult = goodsService.addGoods(goodsName, description, price, picture, userUuid);
+        CommonResult commonResult = goodsService.addGoods(goodsName, description, price, picture, userUuid, sort);
         if (!commonResult.isSuccess()) {
             map.put("msg", commonResult.getMsg());
             return "/goods/postGoods";
@@ -69,6 +70,17 @@ public class GoodsController {
         }
         map.put("goodsList", commonResult.getData());
         map.put("goodsName", goodsName);
+        return "/goods/showGoods";
+    }
+
+    @GetMapping("/showAllGoodsBySort")
+    public String showGoodsBySort(Map<String, Object> map, @RequestParam(value = "sort", required = false) String sortType) {
+        CommonResult commonResult = goodsService.showGoodsBySort(sortType);
+        if (!commonResult.isSuccess()) {
+            map.put("msg", commonResult.getMsg());
+            return "/goods/showGoods";
+        }
+        map.put("goodsList", commonResult.getData());
         return "/goods/showGoods";
     }
 

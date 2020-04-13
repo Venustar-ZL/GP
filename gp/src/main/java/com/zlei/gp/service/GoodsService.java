@@ -7,7 +7,7 @@ public interface GoodsService {
 
     public CommonResult uploadGoodsPicture(MultipartFile file);
 
-    public CommonResult addGoods(String goodsName, String description, String price, MultipartFile picture, String userUuid);
+    public CommonResult addGoods(String goodsName, String description, String price, MultipartFile picture, String userUuid, String sort);
 
     public CommonResult showGoods(String goodsName);
 
@@ -18,5 +18,7 @@ public interface GoodsService {
     public CommonResult getShopCar(String userUuid);
 
     public CommonResult getGoodsInfoByUser(String userUuid);
+
+    public CommonResult showGoodsBySort(String sortType);
 
 }
